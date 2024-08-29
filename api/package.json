@@ -1,0 +1,10 @@
+{
+  "name": "microservice-api-boilerplate",
+  "private": true,
+  "workspaces": [
+    "api-gw",
+    "services/user",
+    "services/auth",
+    "shared/auth"
+  ]
+}

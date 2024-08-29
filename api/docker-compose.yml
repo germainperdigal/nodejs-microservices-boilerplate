@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build:
+      context: ./api-gw
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api-gw/src:/usr/src/app/src
+      - ./api-gw/package.json:/usr/src/app/package.json
+      - ./api-gw/package-lock.json:/usr/src/app/package-lock.json
+      - ./shared:/usr/src/shared
+    environment:
+      - USER_SERVICE_URL=http://user-service:3001
+    depends_on:
+      - user-service
+
+  user-service:
+    build:
+      context: ./services/user
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./services/user/src:/usr/src/app/src
+      - ./services/user/package.json:/usr/src/app/package.json
+      - ./services/user/package-lock.json:/usr/src/app/package-lock.json
